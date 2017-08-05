@@ -1,33 +1,31 @@
+const ExtractTextWebpackPlugin = require("extract-text-webpack-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
+
 const config = {
-    devtool: 'eval-source-map',
+    devtool: "eval-source-map",
     module: {
         rules: [
             {
-                test: /\.js$/,
-                use: 'babel-loader',
+                test: /\.jsx?/i,
+                use: "babel-loader",
             },
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
-                    'postcss-loader'
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
                 ],
             },
-            {
-                test: /\.jpe?g$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 10000,
-                        },
-                    },
-                ],
-            },
-        ],
-    }
+        ]
+    },
+    plugins: [
+        new ExtractTextWebpackPlugin({ filename: '[name].bundle.css', allChunks: true }),
+        new ManifestPlugin({
+            filename: 'manifest.json',
+            basePath: '/web/'
+        }),
+    ]
 };
 
 module.exports = config;

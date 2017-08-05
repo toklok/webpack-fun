@@ -3,7 +3,8 @@ const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerP
 module.exports = {
     plugins: [
         new WebpackBundleAnalyzer({
-            analyzerMode: 'static'
+            analyzerMode: "static",
+            reportFilename: "report.html",
         })
     ]
 };

@@ -9,25 +9,28 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?/i,
                 exclude: /node_modules/,
-                use: 'babel-loader',
+                use: "babel-loader",
             },
             {
                 test: /\.scss$/,
                 use: ExtractTextWebpackPlugin.extract({
-                    use: [{
+                    use: [
+                        {
                         loader: "css-loader",
-                    }, {
+                        },
+                        {
                         loader: "sass-loader",
-                    }],
-                    fallback: 'style-loader'
+                        }
+                    ],
+                    fallback: "style-loader"
                 })
             }
         ]
     },
     plugins: [
-        new ExtractTextWebpackPlugin({ filename: '[name].[contenthash].bundle.css', allChunks: true }),
+        new ExtractTextWebpackPlugin({ filename: '[name].[chunkhash].bundle.css', allChunks: true }),
         new UglifyJsWebpackPlugin({
             sourceMap: false,
         }),
