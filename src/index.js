@@ -1,6 +1,7 @@
 import { merge } from 'lodash';
+import "babel-polyfill";
 import 'jquery';
-import "./styles.css";
+import "./styles.scss";
 
 const oneObject = {
     'a': [{ 'b': 2 }, { 'd': 4 }]

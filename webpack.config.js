@@ -10,32 +10,7 @@ const addons = (addonArgs) => {
 };
 
 module.exports = (env) => {
-  console.log(env);
   const envConfig = require(`./build-utils/webpack.${env.env}.js`);
+
   return webpackMerge(commonConfig, envConfig, ...addons(env.addons));
-  return {
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          use: 'babel-loader',
-        },
-        {
-          test: /\.css$/,
-          use: ['css-loader', 'style-loader'],
-        },
-        {
-          test: /\.jpe?g$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 10000,
-              },
-            },
-          ],
-        },
-      ],
-    },
-  };
 };

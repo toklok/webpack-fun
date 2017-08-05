@@ -5,24 +5,29 @@ const ManifestPlugin = require("webpack-manifest-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-    devtool: "hidden-source-map",
+    devtool: "false",
     module: {
         rules: [
             {
                 test: /\.js$/,
+                exclude: /node_modules/,
                 use: 'babel-loader',
             },
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 use: ExtractTextWebpackPlugin.extract({
-                    use: "css-loader",
-                    fallback: "style-loader"
+                    use: [{
+                        loader: "css-loader",
+                    }, {
+                        loader: "sass-loader",
+                    }],
+                    fallback: 'style-loader'
                 })
             }
         ]
     },
     plugins: [
-        new ExtractTextWebpackPlugin("styles.css"),
+        new ExtractTextWebpackPlugin({ filename: '[name].[contenthash].bundle.css', allChunks: true }),
         new UglifyJsWebpackPlugin({
             sourceMap: false,
         }),
@@ -31,7 +36,8 @@ module.exports = {
             basePath: '/web/'
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
+            name: 'vendor',
+            minChunks: Infinity
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime'

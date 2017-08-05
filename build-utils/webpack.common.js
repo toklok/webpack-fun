@@ -2,6 +2,7 @@ const commonPaths = require("./common-paths");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
+const path = require('path');
 
 const config = {
     entry: {
@@ -17,7 +18,10 @@ const config = {
     },
     plugins: [
         new webpack.ProgressPlugin(),
-        new CleanWebpackPlugin(['./web']),
+        new CleanWebpackPlugin(['web'], {
+            root: path.resolve(__dirname, '../'),
+            verbose: true
+        }),
         new HtmlWebpackPlugin({
             title: 'Caching'
         }),

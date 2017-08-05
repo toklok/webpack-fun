@@ -2,6 +2,8 @@ const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerP
 
 module.exports = {
     plugins: [
-        new WebpackBundleAnalyzer()
+        new WebpackBundleAnalyzer({
+            analyzerMode: 'static'
+        })
     ]
 };

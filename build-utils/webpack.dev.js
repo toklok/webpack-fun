@@ -8,7 +8,12 @@ const config = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                    'postcss-loader'
+                ],
             },
             {
                 test: /\.jpe?g$/,
